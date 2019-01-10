@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Category;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -26,7 +27,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'type')->dropDownList([ 'full-time' => 'Full-time', 'part-time' => 'Part-time', 'freelancer' => 'Freelancer', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropdownList(
+        Category::find()
+            ->select(['name'])
+            ->indexBy('id')
+            ->column(),
+
+        ['prompt'=>'']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
